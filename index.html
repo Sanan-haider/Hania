@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>❤️ MISS HANIA ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #000, #000);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 16px;
+    }
+    input {
+      width: 80%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      margin-top: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+    marquee {
+    background: red;
+    padding: 10px;
+    border-radius: 25px;
+    font-weight: bold;
+}
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: none;
+      background: #fff;
+      color: #ff4f7a;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .hidden { display: none; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen 1 -->
+  <div class="card" id="screen1">
+    <marquee>Happy Advance Valentines Day   💚    Happy Advance Valentines Day 💚 Happy Advance Valentines Day 💚 Happy Advance Valentines Day</marquee>
+    <h1>❤️ Hello HANIA ❤️</h1>
+    <p>Enter your Best Friend’s Sister Name to Continue 👀</p>
+    <input type="text" id="nameInput" placeholder="Type name here..." />
+    <br />
+    <button onclick="checkName()">Continue ❤️</button>
+    <p id="error" class="hidden">Try again… 🔫🔫🔫🔫🗡️🗡️🗡️🗡️</p>
+  </div>
+
+  <!-- Screen 2 -->
+  <div class="card hidden" id="screen2">
+    <h1>😱 OMG YOU GOT IT RIGHT!</h1>
+    <p>Of course you did… because your best friend is kinda amazing 😎</p>
+    <p>✨ Loading some magic… ✨</p>
+  </div>
+
+  <!-- Screen 3 -->
+  <div class="card hidden" id="screen3">
+    <h1>🎯 Catch My Heart 🎯</h1>
+    <p>Catch 3 hearts to unlock your surprise 💖</p>
+    <p id="score">Hearts caught: 0 / 3</p>
+    <button onclick="startGame()">Start Game ❤️</button>
+  </div>
+
+  <!-- Final Screen -->
+  <div class="card hidden" id="screen4">
+    <h1>❤️ Valentine’s Surprise ❤️</h1>
+    <p>🌹 Stay tuned to this page 🌹</p>
+    <h2 id="countdown">Loading...</h2>
+  </div>
+
+<script>
+  function checkName() {
+    const name = document.getElementById('nameInput').value.trim().toLowerCase();
+    const error = document.getElementById('error');
+
+    if (name === 'maira') {
+      document.getElementById('screen1').classList.add('hidden');
+      document.getElementById('screen2').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('screen2').classList.add('hidden');
+        document.getElementById('screen3').classList.remove('hidden');
+      }, 4500);
+    } else {
+      error.classList.remove('hidden');
+    }
+  }
+
+  let heartsCaught = 0;
+
+  function startGame() {
+    heartsCaught = 0;
+    document.getElementById('score').innerText = 'Hearts caught: 0 / 3';
+
+    const gameInterval = setInterval(() => {
+      const heart = document.createElement('div');
+      heart.innerHTML = '💖';
+      heart.style.position = 'fixed';
+      heart.style.left = Math.random() * 90 + 'vw';
+      heart.style.top = Math.random() * 80 + 'vh';
+      heart.style.fontSize = '30px';
+      heart.style.cursor = 'pointer';
+
+      heart.onclick = () => {
+        heartsCaught++;
+        document.getElementById('score').innerText = `Hearts caught: ${heartsCaught} / 3`;
+        heart.remove();
+        if (heartsCaught === 3) {
+          clearInterval(gameInterval);
+          document.getElementById('screen3').classList.add('hidden');
+          document.getElementById('screen4').classList.remove('hidden');
+          startCountdown();
+        }
+      };
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }, 900);
+  }
+
+  function startCountdown() {
+    const el = document.getElementById('countdown');
+    const target = new Date('February 14, 2026 00:00:00').getTime();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        el.innerHTML = "💖 HAPPY VALENTINE'S DAY 💖";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      el.innerHTML = `${days} Days ❤️ ${hours} Hours<br>${minutes} Minutes 💕 ${seconds} Seconds`;
+    }, 1000);
+  }
+
+  // Floating hearts
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+  }, 500);
+</script>
+
+</body>
+</html>
